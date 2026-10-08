@@ -21,11 +21,12 @@ def check():
 
 
 def send(text):
-    requests.post(
-        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-        json={"chat_id": CHAT_ID, "text": f"{text}\n{URL}"},
-        timeout=30,
-    )
+    for chat_id in CHAT_ID.split(","):
+        requests.post(
+            f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+            json={"chat_id": chat_id.strip(), "text": f"{text}\n{URL}"},
+            timeout=30,
+        )
 
 
 if __name__ == "__main__":
